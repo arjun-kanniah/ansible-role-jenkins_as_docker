@@ -1,0 +1,28 @@
+---
+- name: Ensure Jenkins Home Directory on Docker Host
+  file:
+    path: "{{ jenkins_home_dir_host }}"
+    state: directory
+    owner: "{{ jenkins_user_id }}"
+    group: "{{ jenkins_group_id }}"
+
+- name: "Pull {{ jenkins_image_name }}:{{ jenkins_image_tag }} Image from Docker Hub"
+  docker_image: 
+    name: "{{ jenkins_image_name }}:{{ jenkins_image_tag }}"
+
+- name: "Run the Jenkins LTS Container on Port {{ docker_host_port }}"
+  docker_container:
+    name: "{{ jenkins_instance_name }}"
+    ports:
+      - "{{ docker_host_port }}:8080"
+    volumes:
+      - "{{ jenkins_home_dir_host }}:{{ jenkins_home_dir_container }}"
+    env:
+      JAVA_OPTS: "-Dhudson.footerURL={{ jenkins_footer_url }}"
+    state: present
+    recreate: no
+
+- name: Pause for 30 Seconds to Permit Jenkins to Start
+  pause:
+    seconds: 30
+  notify: restart docker
