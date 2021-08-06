@@ -15,11 +15,11 @@
   docker_image:
     name: "{{ jenkins_image_name }}"
     build:
-      path: "../files"
+      path: ../files
       args:
         JENKINS_USER: "{{ jenkins_admin_user }}"
         JENKINS_PASS: "{{ jenkins_admin_password }}"
-      source: build
+    source: build
     state: present
     tag: "{{ jenkins_image_tag }}"
     push: yes
