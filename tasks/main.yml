@@ -6,10 +6,24 @@
     owner: "{{ jenkins_user_id }}"
     group: "{{ jenkins_group_id }}"
 
-- name: "Pull {{ jenkins_image_name }}:{{ jenkins_image_tag }} Image from Docker Hub"
-  docker_image: 
-    name: "{{ jenkins_image_name }}:{{ jenkins_image_tag }}"
-    source: pull
+# - name: "Pull {{ jenkins_image_name }}:{{ jenkins_image_tag }} Image from Docker Hub"
+#   docker_image: 
+#     name: "{{ jenkins_image_name }}:{{ jenkins_image_tag }}"
+#     source: pull
+
+- name: Build Jenkins LTS Image from Dockerfile with pre-installed plugins
+  docker_image:
+    name: "{{ jenkins_image_name }}"
+    build:
+      path: "../files"
+      args:
+        JENKINS_USER: "{{ jenkins_admin_user }}"
+        JENKINS_PASS: "{{ jenkins_admin_password }}"
+      source: build
+    state: present
+    tag: "{{ jenkins_image_tag }}"
+    push: yes
+
 
 - name: "Run the Jenkins LTS Container on Port {{ docker_host_port }}"
   docker_container:
@@ -22,4 +36,6 @@
     env:
       JAVA_OPTS: "-Dhudson.footerURL={{ jenkins_footer_url }}"
     state: started
+    restart: yes
+    restart_policy: unless-stopped
     recreate: no
