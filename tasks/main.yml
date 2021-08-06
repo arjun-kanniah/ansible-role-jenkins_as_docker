@@ -21,10 +21,5 @@
       - "{{ jenkins_home_dir_host }}:{{ jenkins_home_dir_container }}"
     env:
       JAVA_OPTS: "-Dhudson.footerURL={{ jenkins_footer_url }}"
-    state: present
+    state: started
     recreate: no
-
-- name: Pause for 30 Seconds to Permit Jenkins to Start
-  pause:
-    seconds: 30
-  notify: restart docker
