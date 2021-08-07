@@ -15,6 +15,7 @@
   docker_login:
     username: "{{ docker_hub_username }}"
     password: "{{ docker_hub_password }}"
+    reauthorize: yes
 
 - name: Build Jenkins LTS Image from Dockerfile with pre-installed plugins
   docker_image:
@@ -33,7 +34,7 @@
 - name: "Run the Jenkins LTS Container on Port {{ docker_host_port }}"
   docker_container:
     name: "{{ jenkins_instance_name }}"
-    image: "{{ jenkins_image_name }}:{{ jenkins_image_tag }}"
+    image: "{{ docker_hub_username }}/{{ jenkins_image_name }}:{{ jenkins_image_tag }}"
     ports:
       - "{{ docker_host_port }}:8080"
     volumes:

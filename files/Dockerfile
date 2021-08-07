@@ -3,6 +3,8 @@ MAINTAINER arjun.kanniah@outlook.com
 
 USER root
 
+ENV JAVA_OPTS -Djenkins.install.runSetupWizard=false
+
 ARG JENKINS_USER
 ENV JENKINS_USER=${JENKINS_USER}
 
@@ -22,9 +24,6 @@ RUN apt-get update && \
       stable" && \
    apt-get update && \
    apt-get -y install docker-ce
-
-# Skip initial setup
-ENV JAVA_OPTS -Djenkins.install.runSetupWizard=false
 
 COPY jenkins-plugins.txt /usr/share/jenkins/jenkins-plugins.txt
 RUN /usr/local/bin/install-plugins.sh < /usr/share/jenkins/jenkins-plugins.txt
