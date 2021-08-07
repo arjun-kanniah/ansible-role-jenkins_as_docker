@@ -31,11 +31,11 @@
     name: "{{ jenkins_instance_name }}"
     image: "{{ docker_hub_username }}/{{ jenkins_image_name }}:{{ jenkins_image_tag }}"
     ports:
-      - "{{ docker_host_port }}:8080"
+      - "{{ jenkins_host_port }}:8080"
     volumes:
       - "{{ jenkins_home_dir_host }}:{{ jenkins_home_dir_container }}"
     env:
-      JAVA_OPTS: "-Djenkins.install.runSetupWizard=false -Dhudson.footerURL={{ jenkins_footer_url }}"
+      JAVA_OPTS: "-Djenkins.install.runSetupWizard=false"
     state: started
     restart: yes
     restart_policy: unless-stopped

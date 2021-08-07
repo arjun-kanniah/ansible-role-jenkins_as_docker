@@ -13,6 +13,7 @@ ARG JENKINS_ADMIN_PASS
 ENV JENKINS_ADMIN_PASS=${JENKINS_ADMIN_PASS}
 
 RUN apt-get update && \
+    apt-get -y upgrade && \
     apt-get -y install apt-transport-https \
       ca-certificates \
       curl \
@@ -28,8 +29,6 @@ RUN apt-get update && \
 
 COPY --chown=jenkins:jenkins jenkins-plugins.txt /usr/share/jenkins/jenkins-plugins.txt
 RUN /usr/local/bin/install-plugins.sh < /usr/share/jenkins/jenkins-plugins.txt
-
-RUN ssh-keygen -f /root/.ssh/id_rsa -t rsa -N ''
 
 VOLUME /var/jenkins_home
 
