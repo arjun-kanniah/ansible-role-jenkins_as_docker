@@ -6,12 +6,7 @@
     owner: "{{ jenkins_user_id }}"
     group: "{{ jenkins_group_id }}"
 
-# - name: "Pull {{ jenkins_image_name }}:{{ jenkins_image_tag }} Image from Docker Hub"
-#   docker_image: 
-#     name: "{{ jenkins_image_name }}:{{ jenkins_image_tag }}"
-#     source: pull
-
-- name: Login to Docker Hub to be able to oush the built image
+- name: Login to Docker Hub to be able to push the built image
   docker_login:
     username: "{{ docker_hub_username }}"
     password: "{{ docker_hub_password }}"
@@ -23,8 +18,8 @@
     build:
       path: "{{ dockerfile_build_path }}"
       args:
-        JENKINS_USER: "{{ jenkins_admin_user }}"
-        JENKINS_PASS: "{{ jenkins_admin_password }}"
+        JENKINS_ADMIN: "{{ jenkins_admin_user }}"
+        JENKINS_ADMIN_PASS: "{{ jenkins_admin_password }}"
     source: build
     state: present
     tag: "{{ jenkins_image_tag }}"
@@ -40,7 +35,7 @@
     volumes:
       - "{{ jenkins_home_dir_host }}:{{ jenkins_home_dir_container }}"
     env:
-      JAVA_OPTS: "-Dhudson.footerURL={{ jenkins_footer_url }}"
+      JAVA_OPTS: "-Djenkins.install.runSetupWizard=false -Dhudson.footerURL={{ jenkins_footer_url }}"
     state: started
     restart: yes
     restart_policy: unless-stopped
