@@ -11,11 +11,16 @@
 #     name: "{{ jenkins_image_name }}:{{ jenkins_image_tag }}"
 #     source: pull
 
+- name: Login to Docker Hub to be able to oush the built image
+  docker_login:
+    username: "{{ docker_hub_username }}"
+    password: "{{ docker_hub_password }}"
+
 - name: Build Jenkins LTS Image from Dockerfile with pre-installed plugins
   docker_image:
-    name: "{{ jenkins_image_name }}"
+    name: "{{ docker_hub_username }}/{{ jenkins_image_name }}"
     build:
-      path: ../files
+      path: "{{ dockerfile_build_path }}"
       args:
         JENKINS_USER: "{{ jenkins_admin_user }}"
         JENKINS_PASS: "{{ jenkins_admin_password }}"

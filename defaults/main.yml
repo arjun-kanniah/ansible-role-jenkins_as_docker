@@ -5,8 +5,12 @@ jenkins_home_dir_container: '/var/jenkins_home'
 jenkins_user_id: '1000'
 jenkins_group_id: '1000'
 
-jenkins_image_name: 'arjunkanniah/jenkins'
+docker_hub_username: 'arjunkanniah'
+docker_hub_password: ''
+jenkins_image_name: 'jenkins'
 jenkins_image_tag: 'lts-jdk11'
+
+dockerfile_build_path: roles/ansible-role-jenkins_as_docker/files
 
 jenkins_admin_user: 'admin'
 jenkins_admin_password: 'password'
