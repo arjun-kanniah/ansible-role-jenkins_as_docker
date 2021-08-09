@@ -12,6 +12,12 @@
     password: "{{ docker_hub_password }}"
     reauthorize: yes
 
+- name: Check if Jenkins LTS image is available in Docker Hub
+  uri:
+    url: "{{ docker_hub_registry }}/repositories/{{ docker_hub_username }}/{{ jenkins_image_name }}/tags/{{ jenkins_image_tag }}"
+  register: result
+  ignore_errors: yes
+
 - name: Build Jenkins LTS Image from Dockerfile with pre-installed plugins
   docker_image:
     name: "{{ docker_hub_username }}/{{ jenkins_image_name }}"
@@ -24,6 +30,7 @@
     state: present
     tag: "{{ jenkins_image_tag }}"
     push: yes
+  when: result.status != 200
 
 
 - name: "Run the Jenkins LTS Container on Port {{ jenkins_host_port }}"
