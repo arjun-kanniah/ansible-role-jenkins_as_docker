@@ -1,10 +1,10 @@
 FROM jenkins/jenkins:lts-jdk11
-MAINTAINER arjun.kanniah@outlook.com
+LABEL author=arjun.kanniah@outlook.com
 
 USER root
 
 ENV JAVA_OPTS -Djenkins.install.runSetupWizard=false
-ENV CASC_JENKINS_CONFIG /var/jenkins_home/casc.yml
+ENV CASC_JENKINS_CONFIG /var/jenkins_home/casc_configs
 
 ARG JENKINS_ADMIN
 ENV JENKINS_ADMIN=${JENKINS_ADMIN}
@@ -32,7 +32,7 @@ RUN /usr/local/bin/install-plugins.sh < /usr/share/jenkins/jenkins-plugins.txt
 
 VOLUME /var/jenkins_home
 
-COPY --chown=jenkins:jenkins casc.yml /var/jenkins_home/casc.yml
+COPY --chown=jenkins:jenkins jenkins_casc.yml /var/jenkins_home/casc_configs/jenkins_casc.yml
 
 USER jenkins
 

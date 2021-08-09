@@ -5,6 +5,7 @@ azure-commons
 azure-credentials
 blueocean
 cloudbees-folder
+configuration-as-code
 credentials
 credentials-binding
 docker-build-step
