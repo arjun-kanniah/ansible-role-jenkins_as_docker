@@ -32,7 +32,6 @@
     push: yes
   when: result.status != 200
 
-
 - name: "Run the Jenkins LTS Container on Port {{ jenkins_host_port }}"
   docker_container:
     name: "{{ jenkins_instance_name }}"
