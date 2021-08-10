@@ -37,6 +37,7 @@
   docker_container:
     name: "{{ jenkins_instance_name }}"
     image: "{{ docker_hub_username }}/{{ jenkins_image_name }}:{{ jenkins_image_tag }}"
+    pull: yes
     ports:
       - "{{ jenkins_host_port }}:8080"
     volumes:
