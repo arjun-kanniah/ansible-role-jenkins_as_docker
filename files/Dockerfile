@@ -1,8 +1,6 @@
 FROM jenkins/jenkins:lts-jdk11
 LABEL author=arjun.kanniah@outlook.com
 
-USER root
-
 ENV JAVA_OPTS -Djenkins.install.runSetupWizard=false
 ENV CASC_JENKINS_CONFIG /var/jenkins_home/jenkins_casc.yml
 
@@ -11,6 +9,8 @@ ENV JENKINS_ADMIN=${JENKINS_ADMIN}
 
 ARG JENKINS_ADMIN_PASS
 ENV JENKINS_ADMIN_PASS=${JENKINS_ADMIN_PASS}
+
+USER root
 
 RUN apt-get update && \
     apt-get -y upgrade && \
@@ -33,7 +33,5 @@ RUN /usr/local/bin/install-plugins.sh < /usr/share/jenkins/jenkins-plugins.txt
 VOLUME /var/jenkins_home
 
 COPY --chown=jenkins:jenkins jenkins_casc.yml /var/jenkins_home/jenkins_casc.yml
-
-USER jenkins
 
 EXPOSE 8080
