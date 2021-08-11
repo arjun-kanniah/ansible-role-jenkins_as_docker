@@ -33,6 +33,6 @@ RUN mkdir /usr/share/jenkins/casc_configs && \
 COPY --chown=jenkins:jenkins jenkins-plugins.txt /usr/share/jenkins/jenkins-plugins.txt
 RUN /usr/local/bin/install-plugins.sh < /usr/share/jenkins/jenkins-plugins.txt
 
-COPY --chown=jenkins:jenkins jenkins_casc.yml /usr/share/jenkins/jenkins_casc.yml
+COPY --chown=jenkins:jenkins jenkins-casc.yml /usr/share/jenkins/casc_configs/jenkins-casc.yml
 
 EXPOSE 8080
