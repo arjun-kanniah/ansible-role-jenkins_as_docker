@@ -2,7 +2,7 @@ FROM jenkins/jenkins:lts-jdk11
 LABEL author=arjun.kanniah@outlook.com
 
 ENV JAVA_OPTS -Djenkins.install.runSetupWizard=false
-ENV CASC_JENKINS_CONFIG /var/jenkins_home/jenkins_casc.yml
+ENV CASC_JENKINS_CONFIG /usr/share/jenkins/casc_configs/jenkins_casc.yml
 
 ARG JENKINS_ADMIN
 ENV JENKINS_ADMIN=${JENKINS_ADMIN}
@@ -27,11 +27,14 @@ RUN apt-get update && \
    apt-get update && \
    apt-get -y install docker-ce
 
+USER jenkins
+
+RUN mkdir /usr/share/jenkins/casc_configs/
+RUN chown -R jenkins:jenkins /usr/share/jenkins/casc_configs/
+
 COPY --chown=jenkins:jenkins jenkins-plugins.txt /usr/share/jenkins/jenkins-plugins.txt
 RUN /usr/local/bin/install-plugins.sh < /usr/share/jenkins/jenkins-plugins.txt
 
-VOLUME /var/jenkins_home
-
-COPY --chown=jenkins:jenkins jenkins_casc.yml /var/jenkins_home/jenkins_casc.yml
+COPY --chown=jenkins:jenkins jenkins_casc.yml /usr/share/jenkins/jenkins_casc.yml
 
 EXPOSE 8080
