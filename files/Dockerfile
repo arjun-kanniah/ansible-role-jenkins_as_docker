@@ -29,8 +29,8 @@ RUN apt-get update && \
 
 USER jenkins
 
-RUN mkdir /usr/share/jenkins/casc_configs/ && \
-    chown -R jenkins:jenkins /usr/share/jenkins/casc_configs/
+RUN mkdir /usr/share/jenkins/casc_configs && \
+    chown jenkins:jenkins /usr/share/jenkins/casc_configs
 
 COPY --chown=jenkins:jenkins jenkins-plugins.txt /usr/share/jenkins/jenkins-plugins.txt
 RUN /usr/local/bin/install-plugins.sh < /usr/share/jenkins/jenkins-plugins.txt
