@@ -6,6 +6,14 @@
     owner: "{{ jenkins_user_id }}"
     group: "{{ jenkins_group_id }}"
 
+- name: Ensure credentials are added to jenkins-casc.yml
+  blockinfile:
+    path: "{{ dockerfile_build_path }}/jenkins-casc.yml"
+    block: |4
+        - id: "{{ jenkins_admin_user }}"
+          password: "{{ jenkins_admin_password }}"
+    insertafter: "users:"
+
 - name: Login to Docker Hub to be able to push the built image
   docker_login:
     username: "{{ docker_hub_username }}"
@@ -17,6 +25,12 @@
     url: "{{ docker_hub_registry }}/repositories/{{ docker_hub_username }}/{{ jenkins_image_name }}/tags/{{ jenkins_image_tag }}"
   register: result
   ignore_errors: yes
+
+- name: Remove the running container if new image will be built
+  docker_container:
+    name: "{{ jenkins_instance_name }}"
+    state: absent
+  when: result.status != 200
 
 - name: Build Jenkins LTS Image from Dockerfile with pre-installed plugins
   docker_image:
@@ -30,6 +44,7 @@
     state: present
     tag: "{{ jenkins_image_tag }}"
     push: yes
+    force_source: yes
   when: result.status != 200
 
 - name: "Run the Jenkins LTS Container on Port {{ jenkins_host_port }}"
@@ -43,7 +58,5 @@
       - "{{ jenkins_home_dir_host }}:{{ jenkins_home_dir_container }}"
     env:
       JAVA_OPTS: "-Djenkins.install.runSetupWizard=false"
-    state: started
-    restart: yes
+    state: present
     restart_policy: unless-stopped
-    recreate: no

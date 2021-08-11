@@ -9,7 +9,7 @@ docker_hub_registry: 'https://index.docker.io/v1'
 docker_hub_username:
 docker_hub_password: 
 jenkins_image_name: 'jenkins'
-jenkins_image_tag: 'lts-jdk11'
+jenkins_image_tag: 'lts-jdk11-casc'
 
 dockerfile_build_path: 'roles/ansible-role-jenkins_as_docker/files'
 
