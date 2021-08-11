@@ -1,0 +1,19 @@
+jenkins:
+  securityRealm:
+    local:
+      allowsSignup: false
+      users:
+        - id: "{{ jenkins_admin_user }}"
+          password: "{{ jenkins_admin_password }}"
+
+  authorizationStrategy:
+    globalMatrix:
+      permissions:
+        - "Overall/Administer:{{ jenkins_admin_user }}"
+        - "Overall/Read:authenticated"
+
+  numExecutors: 1
+
+unclassified:
+  location:
+    url: http://localhost:8080/

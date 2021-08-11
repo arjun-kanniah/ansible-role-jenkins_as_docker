@@ -6,13 +6,11 @@
     owner: "{{ jenkins_user_id }}"
     group: "{{ jenkins_group_id }}"
 
-- name: Ensure credentials are added to jenkins-casc.yml
-  blockinfile:
-    path: "{{ dockerfile_build_path }}/jenkins-casc.yml"
-    block: |4
-        - id: "{{ jenkins_admin_user }}"
-          password: "{{ jenkins_admin_password }}"
-    insertafter: "users:"
+- name: Ensure jenkins-casc.yml is setup
+  ansible.builtin.template:
+    src: "{{ template_files_path }}"
+    dest: "{{ dockerfile_build_path }}/jenkins-casc.yml"
+    mode: "0755"
 
 - name: Login to Docker Hub to be able to push the built image
   docker_login:
@@ -26,20 +24,16 @@
   register: result
   ignore_errors: yes
 
-- name: Remove the running container if new image will be built
+- name: Remove the running container
   docker_container:
     name: "{{ jenkins_instance_name }}"
     state: absent
-  when: result.status != 200
 
 - name: Build Jenkins LTS Image from Dockerfile with pre-installed plugins
   docker_image:
     name: "{{ docker_hub_username }}/{{ jenkins_image_name }}"
     build:
       path: "{{ dockerfile_build_path }}"
-      args:
-        JENKINS_ADMIN: "{{ jenkins_admin_user }}"
-        JENKINS_ADMIN_PASS: "{{ jenkins_admin_password }}"
     source: build
     state: present
     tag: "{{ jenkins_image_tag }}"
@@ -56,7 +50,6 @@
       - "{{ jenkins_host_port }}:8080"
     volumes:
       - "{{ jenkins_home_dir_host }}:{{ jenkins_home_dir_container }}"
-    env:
-      JAVA_OPTS: "-Djenkins.install.runSetupWizard=false"
-    state: present
+    state: started
+    restart: yes
     restart_policy: unless-stopped

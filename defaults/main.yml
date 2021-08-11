@@ -12,6 +12,7 @@ jenkins_image_name: 'jenkins'
 jenkins_image_tag: 'lts-jdk11-casc'
 
 dockerfile_build_path: 'roles/ansible-role-jenkins_as_docker/files'
+template_files_path: 'roles/ansible-role-jenkins_as_docker/templates'
 
 jenkins_admin_user:
 jenkins_admin_password:
