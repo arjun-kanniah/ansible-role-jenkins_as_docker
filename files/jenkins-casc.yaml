@@ -3,13 +3,16 @@ jenkins:
     local:
       allowsSignup: false
       users:
-       - id: ${JENKINS_ADMIN}
-         password: ${JENKINS_ADMIN_PASS}
+       - id: "arjunkanniah"
+         password: "KandaSasti21"
+
   authorizationStrategy:
     globalMatrix:
       permissions:
-        - "Overall/Administer:admin"
+        - "Overall/Administer:arjunkanniah"
         - "Overall/Read:authenticated"
+
+  numExecutors: 1
 
 unclassified:
   location:

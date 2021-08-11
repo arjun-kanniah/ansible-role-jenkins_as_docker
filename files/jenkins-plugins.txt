@@ -1,5 +1,6 @@
 ansible
 ansible-tower
+authorize-project
 azure-cli
 azure-commons
 azure-credentials
@@ -13,10 +14,14 @@ docker-commons
 docker-compose-build-step
 docker-plugin
 docker-workflow
+email-ext
 git
 git-client
 git-parameter
 git-server
+job-dsl
+matrix-auth
+packer
 pipeline-build-step
 pipeline-graph-analysis
 pipeline-input-step
@@ -24,3 +29,7 @@ pipeline-model-definition
 pipeline-multibranch-defaults
 pipeline-stage-step
 ssh-credentials
+terraform
+workflow-job
+workflow-cps
+ws-cleanup
