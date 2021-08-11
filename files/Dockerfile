@@ -27,8 +27,6 @@ RUN apt-get update && \
    apt-get update && \
    apt-get -y install docker-ce
 
-USER jenkins
-
 RUN mkdir /usr/share/jenkins/casc_configs && \
     chown jenkins:jenkins /usr/share/jenkins/casc_configs
 
