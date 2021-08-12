@@ -1,13 +1,15 @@
 jenkins:
   securityRealm:
     local:
-      allowsSignup: false
+      allowsSignup: true
       users:
+        - id: "admin"
+          password: "password"
 
   authorizationStrategy:
     globalMatrix:
       permissions:
-        - "Overall/Administer:arjunkanniah"
+        - "Overall/Administer:admin"
         - "Overall/Read:authenticated"
 
   numExecutors: 1
