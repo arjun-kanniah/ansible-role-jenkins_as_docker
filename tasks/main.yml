@@ -22,6 +22,7 @@
   docker_container:
     name: "{{ jenkins_instance_name }}"
     state: absent
+  when: result.status != 200
 
 - name: Build Jenkins LTS Image from Dockerfile with pre-installed plugins
   docker_image:
@@ -45,5 +46,4 @@
     volumes:
       - "{{ jenkins_home_dir_host }}:{{ jenkins_home_dir_container }}"
     state: started
-    restart: yes
     restart_policy: unless-stopped
