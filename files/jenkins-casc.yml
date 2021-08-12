@@ -1,7 +1,7 @@
 jenkins:
   securityRealm:
     local:
-      allowsSignup: true
+      allowsSignup: false
       users:
         - id: "admin"
           password: "Pa$$w0rD"
