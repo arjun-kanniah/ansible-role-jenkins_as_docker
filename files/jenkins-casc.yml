@@ -4,7 +4,7 @@ jenkins:
       allowsSignup: true
       users:
         - id: "admin"
-          password: "password"
+          password: "Pa$$w0rD"
 
   authorizationStrategy:
     globalMatrix:
