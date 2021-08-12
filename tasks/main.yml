@@ -6,12 +6,6 @@
     owner: "{{ jenkins_user_id }}"
     group: "{{ jenkins_group_id }}"
 
-- name: Ensure jenkins-casc.yml is setup
-  ansible.builtin.template:
-    src: "{{ template_files_path }}"
-    dest: "{{ dockerfile_build_path }}/jenkins-casc.yml"
-    mode: "0755"
-
 - name: Login to Docker Hub to be able to push the built image
   docker_login:
     username: "{{ docker_hub_username }}"
