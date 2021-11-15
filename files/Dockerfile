@@ -16,5 +16,6 @@ RUN apt install python3-pip -y && pip3 install ansible
 RUN curl -fsSL https://get.docker.com -o get-docker.sh
 RUN sh get-docker.sh
 RUN sleep 10
+RUN service docker start
 
 USER jenkins
