@@ -10,7 +10,6 @@ RUN /usr/local/bin/install-plugins.sh < /usr/share/jenkins/plugins.txt
 COPY jenkins-casc.yml /usr/share/jenkins/casc_configs/jenkins-casc.yml
 
 USER root
-apt update && apt upgrade -y
 apt-get update && apt-get upgrade -y
 apt install python3-pip -y && pip3 install ansible
 curl -fsSL https://get.docker.com -o get-docker.sh
