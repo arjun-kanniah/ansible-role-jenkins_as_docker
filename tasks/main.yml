@@ -43,6 +43,7 @@
     pull: yes
     ports:
       - "{{ jenkins_host_port }}:8080"
+      - "{{ jenkins_agent_port }}:50000"
     volumes:
       - "{{ jenkins_home_dir_host }}:{{ jenkins_home_dir_container }}"
     state: started

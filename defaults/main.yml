@@ -18,5 +18,6 @@ jenkins_admin_password:
 
 jenkins_instance_name: 'jenkins_ci'
 jenkins_host_port: '8080'
+jenkins_agent_port: '50000'
 
 jenkins_footer_url: 'http://jenkins.local'
