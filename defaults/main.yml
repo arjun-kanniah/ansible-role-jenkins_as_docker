@@ -28,6 +28,5 @@ docker_socket_dir_container: '/var/run/docker.sock'
 
 host_internal: 'host.docker.internal'
 host_gateway: 'host-gateway'
-host_as_dict: "{'{{ host_internal }}':'{{ host_gateway }}'}"
 
 jenkins_footer_url: 'http://jenkins.local'
