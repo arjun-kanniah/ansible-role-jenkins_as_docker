@@ -20,4 +20,10 @@ jenkins_instance_name: 'jenkins_ci'
 jenkins_host_port: '8080'
 jenkins_agent_port: '50000'
 
+docker_api_port: '3373'
+docker_proxy_instance_name: 'docker_proxy'
+docker_proxy_image: 'shipyard/docker-proxy'
+docker_socket_dir_host: '/var/run/docker.sock'
+docker_socket_dir_container: '/var/run/docker.sock'
+
 jenkins_footer_url: 'http://jenkins.local'
