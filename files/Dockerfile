@@ -1,4 +1,4 @@
-FROM jenkins/jenkins:lts-jdk11
+FROM jenkins/jenkins:slim-jdk11
 LABEL author=arjun.kanniah@outlook.com
 
 ENV JAVA_OPTS -Djenkins.install.runSetupWizard=false
