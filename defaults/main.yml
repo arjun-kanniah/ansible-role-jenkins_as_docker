@@ -5,7 +5,7 @@ jenkins_home_dir_container: '/var/jenkins_home'
 jenkins_user_id: '1000'
 jenkins_group_id: '1000'
 
-docker_hub_registry: 'https://index.docker.io/v1'
+docker_hub_registry: 'https://registry.hub.docker.com/v2'
 docker_hub_username:
 docker_hub_password: 
 jenkins_image_name: 'jenkins'
