@@ -50,14 +50,14 @@
     state: started
     restart_policy: unless-stopped
     
-# - name: "Run Docker Proxy on Port {{ docker_api_port }}"
-#   docker_container:
-#     name: "{{ docker_proxy_instance_name }}"
-#     image: "{{ docker_proxy_image }}"
-#     pull: yes
-#     ports:
-#       - "{{ docker_api_port }}:2375"
-#     volumes:
-#       - "{{ docker_socket_dir_host }}:{{ docker_socket_dir_container }}"
-#     state: started
-#     restart_policy: always
+- name: "Run Docker Proxy on Port {{ docker_api_port }}"
+  docker_container:
+    name: "{{ docker_proxy_instance_name }}"
+    image: "{{ docker_proxy_image }}"
+    pull: yes
+    ports:
+      - "{{ docker_api_port }}:2375"
+    volumes:
+      - "{{ docker_socket_dir_host }}:{{ docker_socket_dir_container }}"
+    state: started
+    restart_policy: always
